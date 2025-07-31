@@ -1,0 +1,28 @@
+# speech_to_text.py
+
+import speech_recognition as sr
+
+def transcribe_audio(file_path):
+    recognizer = sr.Recognizer()
+
+    try:
+        with sr.AudioFile(file_path) as source:
+            print("Listening to audio...")
+            audio_data = recognizer.record(source)
+            print("Transcribing...")
+            text = recognizer.recognize_google(audio_data)
+            print("\n===== TRANSCRIPTION =====\n")
+            print(text)
+            return text
+    except sr.UnknownValueError:
+        print("Sorry, speech was unintelligible.")
+    except sr.RequestError as e:
+        print(f"API error: {e}")
+    except FileNotFoundError:
+        print("File not found. Please check the path.")
+
+# Example usage
+if __name__ == "__main__":
+    print("===== SPEECH RECOGNITION SYSTEM =====")
+    path = input("Enter the path to your audio file (WAV format recommended): ")
+    transcribe_audio(path)
