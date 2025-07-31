@@ -1,0 +1,22 @@
+# Install libraries (Run this cell only once)
+!pip install transformers
+!pip install torch
+
+# Import necessary modules
+from transformers import pipeline, set_seed
+
+# Set seed for reproducibility
+set_seed(42)
+
+# Create text generation pipeline using GPT-2
+generator = pipeline('text-generation', model='gpt2')
+
+# Take user prompt
+prompt = input("Enter a topic or starting sentence: ")
+
+# Generate text
+results = generator(prompt, max_length=100, num_return_sequences=1)
+
+# Show output
+print("\n===== GENERATED TEXT =====\n")
+print(results[0]['generated_text'])
